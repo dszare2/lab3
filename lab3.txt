@@ -1,0 +1,104 @@
+#include <iostream> 
+#include <stack>
+#include <queue>
+#include <string>
+#include <sstream>
+#include <cctype>
+using namespace std;
+
+
+queue<string> GetInput(){
+	
+	queue<string> Q;
+	string token;
+
+ 
+    while(cin >> token){
+
+      getline(cin, token);
+    if(token == "#"){
+      break;
+
+    }
+		Q.push(token);
+    
+    
+  }
+		
+
+	return Q;
+}
+
+bool EvaluatePostfix(queue<string> input, int& result){
+
+	stack<int> operands;
+  string s;
+  int op1 = operands.top();
+  int op2 = operands.top();
+ 
+
+  while (!input.empty())
+  {
+
+  if(isdigit(s[0]))
+{
+operands.push(stoi(s));
+
+}
+else if(s[0] == '+')
+{
+op1 = operands.top();
+input.pop();
+op2 = operands.top();
+input.pop();
+result = op2 + op1;
+}
+
+else if(s[0] == '-')
+{
+op1 = operands.top();
+input.pop();
+op2 = operands.top();
+input.pop();
+result = op2 - op1;
+
+}
+
+else if(s[0] == '*')
+{
+op1 = operands.top();
+input.pop();
+op2 = operands.top();
+input.pop();
+result = op2 * op1;
+}
+
+else if(s[0] == '/')
+{
+op1 = operands.top();
+input.pop();
+op2 = operands.top();
+input.pop();
+result = op2 / op1;
+}
+
+
+
+
+}
+result = operands.top(); // answer is on top
+	return true; // successful evaluation
+}
+queue<string> nums;
+double output;
+int result;
+int main() {
+ GetInput();
+ output = EvaluatePostfix(nums,result);
+	cout << output;
+
+
+
+	return 0;
+}
+
